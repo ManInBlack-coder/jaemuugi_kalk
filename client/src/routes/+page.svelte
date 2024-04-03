@@ -1,4 +1,35 @@
-<script>
+<script lang="ts">
+
+    let discount = {
+        1000: 3,
+        5000: 5,
+        7000: 7,
+        10000: 10,
+        50000: 15
+    };
+    let nimi = '';
+    let hind = 0;
+    let tax = 6.85;
+    let total = '';
+
+    const calculate = (e: Event) => {
+        e.preventDefault();
+        let temp = hind * (1 + tax / 100);
+        for(const [key, value] of Object.entries(discount)){
+            if(temp >= parseInt(key)){
+                total = (temp * (1 - value / 100)).toFixed(2);
+                return;
+            }
+        }
+        total = temp.toFixed(2);
+        
+    }
+
+    const handleSubmit = (e: Event) =>{
+        e.preventDefault();
+        nimi = (e.target as HTMLFormElement).nimi.value;
+        calculate(e);
+    }
 
 </script>
 
@@ -6,18 +37,18 @@
     <h1>Jaemüügi kalkulaator!!!</h1>
     
     <div class="calculator">
-        <form>
+        <form on:submit={handleSubmit}>
             <div class="field">
                 <label for="nimi">Nimi</label>
                 <input type="text" name="nimi">
             </div>
             <div class="field">
                 <label for="hind">Hind</label>
-                <input type="text" name="hind">
+                <input type="text" name="hind" bind:value={hind}>
             </div>
             <div class="field">
                 <label for="state">Osariik</label>
-                <select name="state">
+                <select name="state" bind:value={tax}>
                     <option value={6.85}>UT</option>
                     <option value={8.00}>NV</option>
                     <option value={6.25}>TX</option>
@@ -30,6 +61,9 @@
             </div>
         </form>
     </div>
+    {#if total && nimi}
+        <h2>{nimi} hind: {total}</h2>
+    {/if}
 </div>
 
 <style>
