@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    let discount = {
+        let discount = {
         1000: 3,
         5000: 5,
         7000: 7,
@@ -78,6 +78,11 @@
         justify-content: center;
         height: 100vh;
     }
+
+
+
+
+
     .calculator{
         display: flex;
         flex-direction: column;
@@ -86,7 +91,21 @@
         border: 2px solid black;
         padding: 20px;
         border-radius: 10px;
+
+
+        box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+        overflow: auto;
+        resize: vertical;
+
+
+
+
+
     }
+      
+
+       
+    
     .field{
         padding: 10px;
     }
